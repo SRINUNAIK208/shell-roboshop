@@ -34,13 +34,13 @@ VALIDATION() {
 }
 
 dnf module disable nodejs -y &>>$LOGS_FILE
-$VALIDATION "$?" "disabled latest version"
+VALIDATION "$?" "disabled latest version"
 
 dnf module enable nodejs:20 -y &>>$LOGS_FILE
-$VALIDATION "$?" "Enabled version:20"
+VALIDATION "$?" "Enabled version:20"
 
 dnf install nodejs -y &>>$LOGS_FILE
-$VALIDATION "$?" "install nodejs"
+VALIDATION "$?" "install nodejs"
 
 id roboshop
 if [ $? -eq 0 ]
@@ -49,28 +49,28 @@ then
 else
 
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
-    $VALIDATION "$?" "created roboshop system user"
+    VALIDATION "$?" "created roboshop system user"
 fi
 
 mkdir -p /app &>>$LOGS_FILE
 curl -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip 
-$VALIDATION "$?" "Download the src code"
+VALIDATION "$?" "Download the src code"
 
 unzip /tmp/user.zip &>>$LOGS_FILE
-$VALIDATION "$?" "unzip the src code"
+VALIDATION "$?" "unzip the src code"
 
 npm install &>>$LOGS_FILE
-$VALIDATION "$?" "install dependencies"
+VALIDATION "$?" "install dependencies"
 
 cp "$SCRIPT_DIR/user.service" /etc/systemd/system/user.service &>>$LOGS_FILE
-$VALIDATION "$?" "created user service"
+VALIDATION "$?" "created user service"
 
 systemctl daemon-reload &>>$LOGS_FILE
-$VALIDATION "$?" "daemon reload"
+VALIDATION "$?" "daemon reload"
 
 systemctl enable user &>>$LOGS_FILE
-$VALIDATION "$?" "enbled user"
+VALIDATION "$?" "enbled user"
 
 systemctl start user &>>$LOGS_FILE
-$VALIDATION "$?" "start user"
+VALIDATION "$?" "start user"
 
