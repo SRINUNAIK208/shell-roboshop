@@ -13,4 +13,5 @@ do
     IP=$(aws ec2 describe-instances --instance-ids $InstanceId --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
   else 
     IP=$(aws ec2 describe-instances --instance-ids $InstanceId  --query "Reservations[*].Instances[*].PrivateIpAddress" --output text)
+  fi
 done
