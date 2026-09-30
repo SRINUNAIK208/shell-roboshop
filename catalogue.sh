@@ -53,10 +53,12 @@ else
 fi
 
 mkdir -p /app &>>$LOGS_FILE
-rm -rf /app/*
+
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
 VALIDATION "$?" "Download the src code"
 
+rm -rf /app/*
+cd /app
 unzip /tmp/catalogue.zip &>>$LOGS_FILE
 VALIDATION "$?" "unzip the src code"
 
