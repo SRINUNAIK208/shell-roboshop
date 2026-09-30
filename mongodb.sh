@@ -45,7 +45,7 @@ systemctl start mongod &>>$LOGS_FILE
 VALIDATION $? "mongodb started"
 
 
-sed -i 's/127.0.0.1/0.0.0.0' /etc/mongod.conf &>>$LOGS_FILE
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$LOGS_FILE
 VALIDATION $? "set remote server"
 
 systemctl restart mongod &>>$LOGS_FILE
