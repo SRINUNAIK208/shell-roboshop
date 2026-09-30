@@ -44,12 +44,6 @@ VALIDATION "$?" "redis enabled"
 dnf install redis -y &>>$LOGS_FILE
 VALIDATION "$?" "redis installed"
 
-sed -i s/127.0.0.1/0.0.0.0 /etc/redis/redis.conf &>>$LOGS_FILE
-VALIDATION "$?" "set remote server"
-
-sed -i s/protected-mode yes/protected-mode no /etc/redis/redis.conf &>>$LOGS_FILE
-VALIDATION "$?" "set remote server"
-
 systemctl enable redis &>>$LOGS_FILE
 VALIDATION "$?" "redis enabled"
 
