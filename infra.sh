@@ -7,7 +7,8 @@ INSTANCE=("mongodb" "redis" "rabbitmq" "mysql" "catalogue" "user" "cart" "shippi
 DOMAIN_NAME=srinunayak.online
 ZONE_ID=Z0407054ZOPSOXW1A7C8
 
-for instance in ${INSTANCE[@]}
+# for instance in ${INSTANCE[@]}
+for instance in $@
 do
   InstanceId=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t3.micro --security-group-ids $SECURITY_GROUP --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" --query "Instances[0].InstanceId" --output text)
   if [ $instance == frontend ]
