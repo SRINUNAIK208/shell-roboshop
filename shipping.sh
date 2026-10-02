@@ -76,13 +76,18 @@ systemctl start shipping &>>$LOGS_FILE
 VALIDATION "$?" "start shipping"
 
 
-dnf install mysql -y 
+dnf install mysql -y &>>$LOGS_FILE
 VALIDATION "$?" "mysql client is"
 
-mysql -h mysql.srinunayak.online -uroot -pRoboShop@1 < /app/db/schema.sql 
+mysql -h mysql.srinunayak.online -uroot -pRoboShop@1 -e 'use cities' &>>$LOGS_FILE
+if [ $? -eq 0 ]
+then 
+   echo -e "mysql data is already loaded...$Y skiiping $N"
+else 
+   mysql -h mysql.srinunayak.online -uroot -pRoboShop@1 < /app/db/schema.sql 
+   mysql -h mysql.srinunayak.online -uroot -pRoboShop@1 < /app/db/app-user.sql 
+   mysql -h mysql.srinunayak.online -uroot -pRoboShop@1 < /app/db/master-data.sql
+fi
 
-mysql -h mysql.srinunayak.online -uroot -pRoboShop@1 < /app/db/app-user.sql 
-
-mysql -h mysql.srinunayak.online -uroot -pRoboShop@1 < /app/db/master-data.sql
-
-systemctl restart shipping
+systemctl restart shipping  &>>$LOGS_FILE 
+VALIDATION "$?" "restart the shipping"
