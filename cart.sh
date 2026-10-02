@@ -56,6 +56,8 @@ mkdir -p /app &>>$LOGS_FILE
 curl -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip 
 VALIDATION "$?" "Download the src code"
 
+rm -rf /app/*
+cd /app
 unzip /tmp/cart.zip &>>$LOGS_FILE
 VALIDATION "$?" "unzip the src code"
 

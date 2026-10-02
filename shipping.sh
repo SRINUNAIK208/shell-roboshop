@@ -75,3 +75,14 @@ VALIDATION "$?" "enbled shipping"
 systemctl start shipping &>>$LOGS_FILE
 VALIDATION "$?" "start shipping"
 
+
+dnf install mysql -y 
+VALIDATION "$?" "mysql client is"
+
+mysql -h mysql.srinunayak.online -uroot -pRoboShop@1 < /app/db/schema.sql 
+
+mysql -h mysql.srinunayak.online -uroot -pRoboShop@1 < /app/db/app-user.sql 
+
+mysql -h mysql.srinunayak.online -uroot -pRoboShop@1 < /app/db/master-data.sql
+
+systemctl restart shipping
