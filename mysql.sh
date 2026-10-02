@@ -40,6 +40,7 @@ VALIDATION() {
 dnf install mysql-server -y &>>$LOGS_FILE
 VALIDATION "$?" "mysql installed"
 
+read -p "enter the root password:" MYSQL_ROOT_PASSWORD
 
 
 systemctl enable mysqld &>>$LOGS_FILE
@@ -48,7 +49,7 @@ VALIDATION "$?" "mysqld enabled"
 systemctl start mysqld &>>$LOGS_FILE
 VALIDATION "$?" "mysqld started"
 
-mysql_secure_installation --set-root-pass RoboShop@1
+mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD
 VALIDATION "$?" "mysql password setup"
 
 
