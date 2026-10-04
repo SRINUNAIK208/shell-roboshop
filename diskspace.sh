@@ -22,11 +22,11 @@ DISK_USAGE=$(df -h | grep -v Filesystem)
 while IFS= read line
 do
    DISK=$(echo $line | awk '{print $5}' | tr -d '%')
-   PATH=$(echo $line | awk '{print $6}')
+   PARTITION=$(echo $line | awk '{print $6}')
 
    if [ $DISK -ge $THERSHOLD ]
   then 
-    MSG+="$PATH: $DISK \n"
+    MSG+="$PARTITION: $DISK \n"
   fi
 done <<<$DISK_USAGE
 
