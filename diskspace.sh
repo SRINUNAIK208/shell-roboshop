@@ -17,7 +17,7 @@
 # for that 
 
 THERSHOLD=1
-
+MSG=""
 DISK_USAGE=$(df -h | grep -v Filesystem)
 while IFS= read line
 do
@@ -26,12 +26,11 @@ do
 
    if [ $DISK -ge $THERSHOLD ]
   then 
-    echo "$PATH: $DISK"
-    echo "warning: disk uasage $DISK"
-  else 
-    echo "disk space is normal"
+    MSG+="$PATH: $DISK \n"
   fi
-done
+done <<<$DISK_USAGE
+
+echo -e $MSG
     
 
 # done <<< $DISK_USAGE
