@@ -19,7 +19,7 @@
 THERSHOLD=1
 
 DISK_USAGE=$(df -h | grep -v Filesystem)
-while IFS=read line
+while IFS= read line
 do
    DISK=$(echo $line | awk '{print $5}' | tr -d '%')
    PATH=$(echo $line | awk '{print $6}')
